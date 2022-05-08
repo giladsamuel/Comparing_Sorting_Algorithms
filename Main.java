@@ -20,14 +20,14 @@ public class Main
    
     String ans = scan.nextLine();
     if(ans.equals("me"))
-        getInput(A, n);
+        Get_Input(A, n);
     
         
     else //if(ans.equals("pro"))
-        random_number(A,n);
+        Random_Number(A,n);
     }
 
-    public static void getInput(int[] A, int n)
+    public static void Get_Input(int[] A, int n)
     {
             for(int i=0;i<n;i++)
             {
@@ -38,7 +38,7 @@ public class Main
 
     }
 
-    public static void random_number(int[] A,int n)
+    public static void Random_Number(int[] A,int n)
     {
         Random rand = new Random();
         for(int i=0;i<n;i++)
@@ -47,7 +47,7 @@ public class Main
         
     }
 
-    private static void heapify(int[] A, int i)
+    private static void Min_Heapify(int[] A, int i)
     {
         int l = Left(i);
         int r = Right(i);
@@ -58,26 +58,36 @@ public class Main
         if(r<A.length && A[r] < A[smallest])
             smallest = r;
         if(smallest!=i)
-            then
-        
+        {
+            Swap(A, A[i], A[smallest]);
+            Min_Heapify( A, smallest);
+        }
     }
 
-    private static int Parent(int i)
+    private static void Build_Min_Heap(int[] A)
     {
-        return i/2;
+        for(int i= A.length/2; i>=1; i--)
+        {
+            Min_Heapify(A,i);
+        }
     }
 
-    private static int Left(int i)
+    private static int Parent(int i) ////return parent
     {
-        return 2*i;
+        return (i-1)/2;
     }
 
-    private static int Right(int i)
+    private static int Left(int i) //return left son
     {
         return 2*i+1;
     }
 
-    private static void swap(int[] A, int a, int b)
+    private static int Right(int i) //return right son 
+    {
+        return 2*(i+1);
+    }
+
+    private static void Swap(int[] A, int a, int b) //swap between two elements in array
     {
         int temp = A[a];
         A[a] = A[b];
