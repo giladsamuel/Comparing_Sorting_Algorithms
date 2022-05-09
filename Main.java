@@ -3,11 +3,11 @@ import java.util.Scanner;
 
 public class Main 
 {
-     static Scanner scan = new Scanner(System.in);
+     static Scanner scan; 
+     static int heap_size;
      public static void main(String[] args)
     {
-    int x =8;
-    String bachur_tov = "tzomet kiryat ata";
+    scan = new Scanner(System.in);
     int n, k;
     int[] A;
     
@@ -15,20 +15,29 @@ public class Main
     System.out.println("Enter the number of elements in the array");
     n = scan.nextInt();
     A = new int[n];
+    heap_size = n;
     System.out.println("Enter the k value");
     k = scan.nextInt();
     System.out.println("do you want to choose numbers or let the program choose for you?");
-    System.out.println("type 'me' if you want to choose or 'pro' if you want random");
+    System.out.println("type 'me' if you want to choose or anything else if you want random");
    
     String ans = scan.nextLine();
     if(ans.equals("me"))
         Get_Input(A, n);
     
         
-    else //if(ans.equals("pro"))
-        Random_Number(A,n);
+    else 
+        Random_Numbers(A,n);
+    
+    print_k_smallest_using_heap(A);
     }
-
+    public static void print_k_smallest_using_heap(int[] A)
+    {
+        Build_Min_Heap(A);
+        for(int i = 0; i<k, i++)
+            Heap_Extract_Min(A);
+        
+    }
     public static void Get_Input(int[] A, int n)
     {
             for(int i=0;i<n;i++)
@@ -40,7 +49,7 @@ public class Main
 
     }
 
-    public static void Random_Number(int[] A,int n)
+    public static void Random_Numbers(int[] A,int n)
     {
         Random rand = new Random();
         for(int i=0;i<n;i++)
@@ -49,6 +58,18 @@ public class Main
         
     }
 
+    public static int Heap_Extract_Min(int[] A)
+    {
+        
+        
+            int min = A[1];
+            A[1] = A[heap_size-1];
+            heap_size--;
+            Min_Heapify(A, heap_size);
+            return min;
+        
+        
+    }
     private static void Min_Heapify(int[] A, int i)
     {
         int l = Left(i);
@@ -68,7 +89,7 @@ public class Main
 
     private static void Build_Min_Heap(int[] A)
     {
-        for(int i= A.length/2; i>=1; i--)
+        for(int i= (A.length-1)/2; i>=0; i--)
         {
             Min_Heapify(A,i);
         }
@@ -95,4 +116,5 @@ public class Main
         A[a] = A[b];
         A[b] = temp;
     }
+
 }
