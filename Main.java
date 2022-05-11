@@ -175,7 +175,7 @@ public class Main
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    private static int Partition(int[] B, int p,int r)//make prtition sum-method of 'Randomized_Partition' method
+    private static int Partition(int[] B, int p,int r)//make prtition sub-method of 'Randomized_Partition' method
     {
         int x = B[r];
         int i = p - 1;
