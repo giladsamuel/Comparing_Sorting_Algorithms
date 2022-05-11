@@ -1,3 +1,11 @@
+/**
+ * This class represents an experiment, in which we test and compare between two solutions for the sorting and
+ * finding 'k' smallest elements out of 'n' given elements problem.
+ * 
+ * @author Hen Golubenko
+ * @author Gilad Samuel
+ */
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,12 +14,8 @@ public class Main
      static Scanner scan; 
      static int heap_size;
      public static void main(String[] args)
-    {
-<<<<<<< HEAD
+    {   
     scan = new Scanner(System.in);
-=======
-    
->>>>>>> 6ee3959c95cab2e3e17147fe760b62a42bc6fc61
     int n, k;
     int[] A;
     
@@ -32,10 +36,11 @@ public class Main
         
     else 
         Random_Numbers(A,n);
-    printArray(A);
-    print_k_smallest_using_heap(A, k);
+    Print_Array(A);
+    Print_k_Smallest_Using_Heap(A, k);
     }
-    public static void print_k_smallest_using_heap(int[] A, int k)
+
+    public static void Print_k_Smallest_Using_Heap(int[] A, int k)
     {
         Build_Min_Heap(A);
         System.out.println("\n"+k+" smallest elements are:");
@@ -43,18 +48,24 @@ public class Main
             System.out.println(Heap_Extract_Min(A));
         
     }
-    public static void Get_Input(int[] A, int n)
+
+    public static void Get_Input(int[] A, int n) //user fill array
     {
             for(int i=0;i<n;i++)
             {
-                System.out.println("Enter next number");
+                System.out.println("Enter next number from 0 to 999");
                 int num = scan.nextInt();
+                while(num<0 || num>999) //if number not in bound
+                {
+                    System.out.println("error! number should be from 0 to 999 \n please choose different number");
+                    num = scan.nextInt();
+                }
                 A[i] = num;
             }
 
     }
 
-    public static void Random_Numbers(int[] A,int n)
+    public static void Random_Numbers(int[] A,int n) //fill array with random integers from 0 to 999
     {
         Random rand = new Random();
         for(int i=0;i<n;i++)
@@ -63,19 +74,16 @@ public class Main
         
     }
 
-    public static int Heap_Extract_Min(int[] A)
+    public static int Heap_Extract_Min(int[] A)//return min element of heap and reorganize to min-heap
     {
-        
-        
             int min = A[0];
             A[0] = A[heap_size-1];
             heap_size--;
             Min_Heapify(A, 0);
             return min;
-        
-        
     }
-    private static void Min_Heapify(int[] A, int i)
+
+    private static void Min_Heapify(int[] A, int i)//organize the heap(array) to be min-heap 
     {
         int l = Left(i);
         int r = Right(i);
@@ -92,7 +100,7 @@ public class Main
         }
     }
 
-    private static void Build_Min_Heap(int[] A)
+    private static void Build_Min_Heap(int[] A) //build min-heap from array 
     {
         for(int i= (A.length-1)/2; i>=0; i--)
         {
@@ -100,7 +108,7 @@ public class Main
         }
     }
 
-    private static int Parent(int i) ////return parent
+    private static int Parent(int i) //return parent
     {
         return (i-1)/2;
     }
@@ -121,7 +129,8 @@ public class Main
         A[a] = A[b];
         A[b] = temp;
     }
-    private static void printArray(int[] A)
+
+    private static void Print_Array(int[] A)
     {
         System.out.println("Your Array is:");
         for(int i = 0; i<A.length; i++)
