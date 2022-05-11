@@ -20,22 +20,23 @@ public class Main
     k = scan.nextInt();
     System.out.println("do you want to choose numbers or let the program choose for you?");
     System.out.println("type 'me' if you want to choose or anything else if you want random");
-   
-    String ans = scan.nextLine();
+    scan.nextLine(); //move the cursor to the next line
+    String ans = scan.nextLine(); //scan next line
     if(ans.equals("me"))
         Get_Input(A, n);
     
         
     else 
         Random_Numbers(A,n);
-    
-    print_k_smallest_using_heap(A);
+    printArray(A);
+    print_k_smallest_using_heap(A, k);
     }
-    public static void print_k_smallest_using_heap(int[] A)
+    public static void print_k_smallest_using_heap(int[] A, int k)
     {
         Build_Min_Heap(A);
-        for(int i = 0; i<k, i++)
-            Heap_Extract_Min(A);
+        System.out.println("\n"+k+" smallest elements are:");
+        for(int i = 0; i<k; i++)
+            System.out.println(Heap_Extract_Min(A));
         
     }
     public static void Get_Input(int[] A, int n)
@@ -62,10 +63,10 @@ public class Main
     {
         
         
-            int min = A[1];
-            A[1] = A[heap_size-1];
+            int min = A[0];
+            A[0] = A[heap_size-1];
             heap_size--;
-            Min_Heapify(A, heap_size);
+            Min_Heapify(A, 0);
             return min;
         
         
@@ -75,14 +76,14 @@ public class Main
         int l = Left(i);
         int r = Right(i);
         int smallest;
-        if(l<A.length && A[l] < A[i])
+        if(l<heap_size && A[l] < A[i])
             smallest = l;
         else smallest = i;
-        if(r<A.length && A[r] < A[smallest])
+        if(r<heap_size && A[r] < A[smallest])
             smallest = r;
         if(smallest!=i)
         {
-            Swap(A, A[i], A[smallest]);
+            Swap(A, i , smallest);
             Min_Heapify( A, smallest);
         }
     }
@@ -115,6 +116,12 @@ public class Main
         int temp = A[a];
         A[a] = A[b];
         A[b] = temp;
+    }
+    private static void printArray(int[] A)
+    {
+        System.out.println("Your Array is:");
+        for(int i = 0; i<A.length; i++)
+            System.out.print(A[i]+" ");
     }
 
 }
