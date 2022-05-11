@@ -7,7 +7,11 @@ public class Main
      static int heap_size;
      public static void main(String[] args)
     {
+<<<<<<< HEAD
     scan = new Scanner(System.in);
+=======
+    
+>>>>>>> 6ee3959c95cab2e3e17147fe760b62a42bc6fc61
     int n, k;
     int[] A;
     
