@@ -31,17 +31,17 @@ public class Main
     scan.nextLine(); //move the cursor to the next line
     String ans = scan.nextLine(); //scan next line
     if(ans.equals("me"))
-        Get_Input(A, n);
+        Get_Input(A);
     
         
     else 
-        Random_Numbers(A,n);
+        Random_Numbers(A);
     
     Copy_arrays(A,B);    
     Print_Array(A);
-    
+
     Print_k_Smallest_Using_Heap(A, k);
-    Print_k_Smallest_Using_Select( B, k); 
+    Print_k_Smallest_Using_Select(B, k); 
     }
 
     public static void Copy_arrays(int[] A, int[] B) //copy elements from A to B
@@ -59,9 +59,9 @@ public class Main
         
     }
 
-    public static void Get_Input(int[] A,int n) //user fill array
+    public static void Get_Input(int[] A) //user fill array
     {
-            for(int i=0;i<n;i++)
+            for(int i=0;i<A.length;i++)
             {
                 System.out.println("Enter next number from 0 to 999");
                 int num = scan.nextInt();
@@ -75,10 +75,10 @@ public class Main
 
     }
 
-    public static void Random_Numbers(int[] A,int n) //fill array with random integers from 0 to 999
+    public static void Random_Numbers(int[] A) //fill array with random integers from 0 to 999
     {
         Random rand = new Random();
-        for(int i=0;i<n;i++)
+        for(int i=0;i<A.length;i++)
             A[i] = rand.nextInt(1000);
             
         
@@ -150,24 +150,24 @@ public class Main
     private static int Randomized_Select(int[] B, int p,int r,int k) //return the 'k' smallest element
     {
         if(p==r)
-            return A[p];
-        int q = Randomized_Partition(A,p,r);
+            return B[p];
+        int q = Randomized_Partition(B,p,r);
         int j = q - p + 1; //number of elements on the left side
 
         if(j==k) //the pivot value is the answer
-            return A[q]; 
+            return B[q]; 
 
         else if(k<j)
-             return Randomized_Select(A,p,q-1,k);
+             return Randomized_Select(B,p,q-1,k);
 
-             else return Randomized_Select(A,q+1,r,k-j);
+             else return Randomized_Select(B,q+1,r,k-j);
     }
 
-    private static int Randomized_Partition(int B,int p,int r) //make prtition around pivot element in 'r' index
+    private static int Randomized_Partition(int[] B,int p,int r) //make prtition around pivot element in 'r' index
     {
         int i = Get_Random_Number(p , r +1);
-        Swap(A,i,r);
-        return Partition(A,p,r);
+        Swap(B,i,r);
+        return Partition(B,p,r);
     }
 
     public static int Get_Random_Number(int min, int max) //return random number greater than or equal to 'min' and less than 'max'
@@ -177,15 +177,15 @@ public class Main
 
     private static int Partition(int[] B, int p,int r)//make prtition sum-method of 'Randomized_Partition' method
     {
-        int x = A[r];
+        int x = B[r];
         int i = p - 1;
         for(int j = p; j<=r-1; j++)
             {
-                if(A[j]<=x)
+                if(B[j]<x)
                     i++;
-                    Swap(A, i, j);
+                    Swap(B, i, j);
             }
-        Swap(A, i+1, r);
+        Swap(B, i+1, r);
         return i + 1;
     }
 
@@ -193,20 +193,20 @@ public class Main
     {
         if(p < r) //check if there are at least two elements in virtual array
         {
-            int q = Partition(A, p, r);
-            Quick_Sort(A, p, q-1);
-            Quick_Sort(A, q+1,r);
+            int q = Partition(B, p, r);
+            Quick_Sort(B, p, q-1);
+            Quick_Sort(B, q+1,r);
         }
     }
 
-    Print_k_Smallest_Using_Select(int[] B, int k)
+    private static void Print_k_Smallest_Using_Select(int[] B, int k)
     {
         System.out.println("\nthe "+k+" smallest element is:");
-        System.out.println(Randomized_Select(A, 0, A.length-1, k));
-        Quick_Sort(A,0,k-1);
+        System.out.println(Randomized_Select(B, 0, B.length-1, k));
+        Quick_Sort(B,0,k-1);
 
         for(int i = 0; i<k; i++)        //print sorted k smallest elements
-            System.out.print(A[i]+" ");
+            System.out.print(B[i]+" ");
         
     }
 }
