@@ -14,8 +14,8 @@ public class Main
      static Scanner scan; 
      static Random rand;
      static int heap_size;
-     static int CountHe = 0;
-     static int CountSe = 0;
+     static int CounterHe = 0;
+     static int CounterSe = 0;
      public static void main(String[] args)
     {   
     scan = new Scanner(System.in);
@@ -50,15 +50,18 @@ public class Main
     }
     
     /*heap's method*/
-
+    
     private static void Print_k_Smallest_Using_Heap(int[] A, int k)
     {
+        System.out.println("@using heap@\n")
         Build_Min_Heap(A);
-    
+        
         System.out.println("\n"+k+" smallest elements are:");
         for(int i = 0; i<k; i++)
             System.out.print(Heap_Extract_Min(A) + " ");
-       
+        
+        System.out.println();    
+        System.out.println("there were " + CounterHe +" comparisons");
     }
 
     private static int Heap_Extract_Min(int[] A)//return min element of heap and reorganize to min-heap
@@ -84,10 +87,16 @@ public class Main
         int r = Right(i);
         int smallest;
         if(l<heap_size && A[l] < A[i])
+            {
             smallest = l;
+            CounterHe++;
+            }
         else smallest = i;
         if(r<heap_size && A[r] < A[smallest])
+            {
             smallest = r;
+            CounterHe++;
+            }
         if(smallest!=i)
         {
             Swap(A, i , smallest);
@@ -116,13 +125,14 @@ public class Main
     private static void Print_k_Smallest_Using_Select(int[] B, int k)
     {
         Randomized_Select(B, 0, B.length-1, k-1);
-        System.out.println("\nthe "+k+" smallest element are:");
+        System.out.println("useing select:\nthe "+k+" smallest element are:");
         
         Quick_Sort(B,0,k-1);
         
         for(int i = 0; i<k; i++)        //print sorted k smallest elements
             System.out.print(B[i]+" ");
-        
+        System.out.println();    
+        System.out.println("there were " + CounterSe +" comparisons");
     }
 
     private static int Randomized_Select(int[] B, int p,int r,int k) //return the 'k' smallest element
@@ -154,6 +164,7 @@ public class Main
         int i = p - 1;
         for(int j = p; j<r; j++)
             {
+            CounterSe++;
                 if(B[j]<=x)
                 {
                     i++;
@@ -214,6 +225,8 @@ public class Main
         System.out.println("Your Array is:");
         for(int i = 0; i<A.length; i++)
             System.out.print(A[i]+" ");
+            System.out.println();
+        
     }
 
 }
