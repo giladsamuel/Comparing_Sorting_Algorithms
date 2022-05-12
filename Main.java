@@ -12,10 +12,12 @@ import java.util.Scanner;
 public class Main 
 {
      static Scanner scan; 
+     static Random rand;
      static int heap_size;
      public static void main(String[] args)
     {   
     scan = new Scanner(System.in);
+    rand = new Random();
     int n, k;
     int[] A, B; //two copy arrays to test solutions
     
@@ -77,7 +79,7 @@ public class Main
 
     public static void Random_Numbers(int[] A) //fill array with random integers from 0 to 999
     {
-        Random rand = new Random();
+        
         for(int i=0;i<A.length;i++)
             A[i] = rand.nextInt(1000);
             
@@ -165,7 +167,7 @@ public class Main
 
     private static int Randomized_Partition(int[] B,int p,int r) //make prtition around pivot element in 'r' index
     {
-        int i = Get_Random_Number(p , r +1);
+        int i = rand.nextInt(r+1-p)+p;
         Swap(B,i,r);
         return Partition(B,p,r);
     }
@@ -182,8 +184,10 @@ public class Main
         for(int j = p; j<=r-1; j++)
             {
                 if(B[j]<x)
+                {
                     i++;
                     Swap(B, i, j);
+                }
             }
         Swap(B, i+1, r);
         return i + 1;
@@ -202,10 +206,10 @@ public class Main
     private static void Print_k_Smallest_Using_Select(int[] B, int k)
     {
         System.out.println("\nthe "+k+" smallest element is:");
-        System.out.println(Randomized_Select(B, 0, B.length-1, k));
-        Quick_Sort(B,0,k-1);
+        System.out.println(Randomized_Select(B, 0, B.length-1, k-1));
+        Quick_Sort(B,0,k-2);
 
-        for(int i = 0; i<k; i++)        //print sorted k smallest elements
+        for(int i = 0; i<k-1; i++)        //print sorted k smallest elements
             System.out.print(B[i]+" ");
         
     }
