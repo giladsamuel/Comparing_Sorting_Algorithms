@@ -50,10 +50,11 @@ public class Main
     public static void Print_k_Smallest_Using_Heap(int[] A, int k)
     {
         Build_Min_Heap(A);
+    
         System.out.println("\n"+k+" smallest elements are:");
         for(int i = 0; i<k; i++)
             System.out.println(Heap_Extract_Min(A));
-        
+       
     }
 
      public static int Heap_Extract_Min(int[] A)//return min element of heap and reorganize to min-heap
