@@ -14,6 +14,8 @@ public class Main
      static Scanner scan; 
      static Random rand;
      static int heap_size;
+     static int CountHe = 0;
+     static int CountSe = 0;
      public static void main(String[] args)
     {   
     scan = new Scanner(System.in);
@@ -46,18 +48,20 @@ public class Main
     Print_k_Smallest_Using_Heap(A, k);
     Print_k_Smallest_Using_Select(B, k);
     }
+    
     /*heap's method*/
-    public static void Print_k_Smallest_Using_Heap(int[] A, int k)
+
+    private static void Print_k_Smallest_Using_Heap(int[] A, int k)
     {
         Build_Min_Heap(A);
     
         System.out.println("\n"+k+" smallest elements are:");
         for(int i = 0; i<k; i++)
-            System.out.println(Heap_Extract_Min(A));
+            System.out.print(Heap_Extract_Min(A) + " ");
        
     }
 
-     public static int Heap_Extract_Min(int[] A)//return min element of heap and reorganize to min-heap
+    private static int Heap_Extract_Min(int[] A)//return min element of heap and reorganize to min-heap
     {
             int min = A[0];
             A[0] = A[heap_size-1];
@@ -91,7 +95,7 @@ public class Main
         }
     }
 
-     private static int Parent(int i) //return parent
+    private static int Parent(int i) //return parent
     {
         return (i-1)/2;
     }
@@ -107,13 +111,14 @@ public class Main
     }
 
 
-    /*select's method*/
-    public static void Print_k_Smallest_Using_Select(int[] B, int k)
+    /*select's methods*/
+
+    private static void Print_k_Smallest_Using_Select(int[] B, int k)
     {
         Randomized_Select(B, 0, B.length-1, k-1);
-        System.out.println("\nthe "+k+" smallest element is:");
+        System.out.println("\nthe "+k+" smallest element are:");
         
-        Quick_Sort(B,0,k-2);
+        Quick_Sort(B,0,k-1);
         
         for(int i = 0; i<k; i++)        //print sorted k smallest elements
             System.out.print(B[i]+" ");
@@ -136,14 +141,14 @@ public class Main
         else return Randomized_Select(B,q+1,r,k-j-1);
     }
 
-     private static int Randomized_Partition(int[] B,int p,int r) //make prtition around pivot element in 'r' index
+    private static int Randomized_Partition(int[] B,int p,int r) //make prtition around pivot element in 'r' index
     {
         int i = rand.nextInt(r+1-p)+p;
         Swap(B,i,r);
         return Partition(B,p,r);
     }
 
-     private static int Partition(int[] B, int p,int r)//make partition sub-method of 'Randomized_Partition' method
+    private static int Partition(int[] B, int p,int r)//make partition sub-method of 'Randomized_Partition' method
     {
         int x = B[r];
         int i = p - 1;
@@ -177,25 +182,18 @@ public class Main
             B[i] = A[i];
     }
 
-    
-
-    public static void Get_Input(int[] A) //user fill array
+    private static void Get_Input(int[] A) //user fill array
     {
             for(int i=0;i<A.length;i++)
             {
-                System.out.println("Enter next number from 0 to 999");
+                System.out.println("Enter next integer");
                 int num = scan.nextInt();
-                while(num<0 || num>999) //if number not in bound
-                {
-                    System.out.println("error! number should be from 0 to 999 \n please choose different number");
-                    num = scan.nextInt();
-                }
                 A[i] = num;
             }
 
     }
 
-    public static void Random_Numbers(int[] A) //fill array with random integers from 0 to 999
+    private static void Random_Numbers(int[] A) //fill array with random integers from 0 to 999
     {
         
         for(int i=0;i<A.length;i++)
@@ -218,15 +216,4 @@ public class Main
             System.out.print(A[i]+" ");
     }
 
-    
-
-   
-
-    public static int Get_Random_Number(int min, int max) //return random number greater than or equal to 'min' and less than 'max'
-    {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
-
-   
-  
 }
