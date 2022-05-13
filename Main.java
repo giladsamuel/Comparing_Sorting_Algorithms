@@ -43,12 +43,11 @@ public class Main
     scan.nextLine(); //move the cursor to the next line
     String ans = scan.nextLine(); //scan next line
     if(ans.equals("me"))
-        Get_Input(Array);
-    
-        
+        Get_Input(Array);   
     else 
         Random_Numbers(Array);
     
+        
     Copy_arrays(Array,copyArray);    
     Print_Array(Array);
 
@@ -132,13 +131,13 @@ public class Main
         int l = Left(i);
         int r = Right(i);
         int smallest = i;
-        if(l<heap_size-1)
+        if(l<heap_size)
         {
         CounterHe++;
          if(A[l] < A[i])
              smallest = l;
         }
-        if(r<heap_size-1)
+        if(r<heap_size)
         {
             CounterHe++;
             if(A[r] < A[smallest])
