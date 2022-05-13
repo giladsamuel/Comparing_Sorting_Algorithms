@@ -215,7 +215,7 @@ public class Main
     {
         if(p < r) //check if there are at least two elements in virtual array
         {
-            int q = Randomized_Partition(B, p, r);
+            int q = Partition(B, p, r);
             Quick_Sort(B, p, q-1);
             Quick_Sort(B, q+1,r);
         }
