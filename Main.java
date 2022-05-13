@@ -29,17 +29,17 @@ public class Main
     rand = new Random();
     int n, k;
     int[] Array, copyArray; //two copy arrays to test solutions
-    int[] A,B,C,D;
-    System.out.println("Welcome");
-    System.out.println("Enter the number of elements in the array");
+    
+    System.out.println("Welcome\nEnter the number of elements in the array");
+    
     n = scan.nextInt();
     Array = new int[n];
     copyArray = new int[n];
     heap_size = n;
     System.out.println("Enter the k value");
     k = scan.nextInt();
-    System.out.println("do you want to choose numbers or let the program choose for you?");
-    System.out.println("type 'me' if you want to choose or anything else if you want random");
+    System.out.println("do you want to choose numbers or let the program choose for you?\n"
+                           + "type 'me' if you want to choose or anything else if you want random");
     scan.nextLine(); //move the cursor to the next line
     String ans = scan.nextLine(); //scan next line
     if(ans.equals("me"))
@@ -55,50 +55,65 @@ public class Main
     Print_k_Smallest_Using_Select(copyArray, k);
     
     System.out.println("-----------------------------------------------");
-    A = new int[SIZE_ONE];
-    B = new int[SIZE_TWO];
-    C = new int[SIZE_THREE];
-    D = new int[SIZE_FOUR];
+    
+    
+    int [] A = new int[SIZE_ONE];
+    int [] B = new int[SIZE_TWO];
+    int [] C = new int[SIZE_THREE];
+    int [] D = new int[SIZE_FOUR];
+
+    int [] copyA1 = new int[SIZE_ONE];
+    int [] copyB1 = new int[SIZE_TWO];
+    int [] copyC1 = new int[SIZE_THREE];
+    int [] copyD1 = new int[SIZE_FOUR];
+    
+    int [] copyA2 = new int[SIZE_ONE];
+    int [] copyB2 = new int[SIZE_TWO];
+    int [] copyC2 = new int[SIZE_THREE];
+    int [] copyD2 = new int[SIZE_FOUR];
+
     Random_Numbers(A);
     Random_Numbers(B);
     Random_Numbers(C);
     Random_Numbers(D);
-    make_comparison(A);
-    make_comparison(B);
-    make_comparison(C);
-    make_comparison(D);
+
+    make_comparison(A,copyA1,copyA2);
+    make_comparison(B,copyB1,copyB2);
+    make_comparison(C,copyC1,copyC2);
+    make_comparison(D,copyD1,copyD2);
    
     }
     
-    public static void make_comparison(int[] array)
+    public static void make_comparison(int[] array,int[] copy1,int[] copy2)
     {
         String result;
-        initialize(array.length);
+        initialize( array, copy1, copy2);
          System.out.println("n = "+array.length);
-         System.out.println("---------------");
+         System.out.println("----------------");
         System.out.println("----------------");
-        Print_k_Smallest_Using_Heap(array, K_ONE);
-        Print_k_Smallest_Using_Select(array, K_ONE);
+        Print_k_Smallest_Using_Heap(copy1, K_ONE);
+        Print_k_Smallest_Using_Select(copy2, K_ONE);
         result = CounterHe < CounterSe ? "HEAP" : "SELECT";
         System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_ONE+"\n");
-        initialize(array.length);
-        Print_k_Smallest_Using_Heap(array, K_TWO);
-        Print_k_Smallest_Using_Select(array, K_TWO);
+        initialize( array, copy1, copy2);
+        Print_k_Smallest_Using_Heap(copy1, K_TWO);
+        Print_k_Smallest_Using_Select(copy2, K_TWO);
         result = CounterHe < CounterSe ? "HEAP" : "SELECT";
         System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_TWO+"\n");
-        initialize(array.length);
-        Print_k_Smallest_Using_Heap(array, K_THREE);
-        Print_k_Smallest_Using_Select(array, K_THREE);
+        initialize( array, copy1, copy2);
+        Print_k_Smallest_Using_Heap(copy1, K_THREE);
+        Print_k_Smallest_Using_Select(copy2, K_THREE);
         result = CounterHe < CounterSe ? "HEAP" : "SELECT";
         System.out.println("\n"+result+" made less comparisons for n = "+array.length+", k = "+K_THREE+"\n");
-        initialize(array.length);
+        initialize( array, copy1, copy2);
     }
+
     /*heap's method*/
     
     private static void Print_k_Smallest_Using_Heap(int[] A, int k)
     {
         
-        System.out.println("using heap:\n");
+        System.out.println("\nusing heap:");
         Build_Min_Heap(A);
         
         System.out.println(k+" smallest elements are:");
@@ -164,7 +179,6 @@ public class Main
     {
         return 2*(i+1);
     }
-
 
     /*select's methods*/
 
@@ -275,9 +289,12 @@ public class Main
         
     }
 
-    private static void initialize(int size)
+    private static void initialize(int[] array,int[] copy1,int[] copy2)
     {
-        heap_size = size;
+        Copy_arrays(array,copy1);
+        Copy_arrays(array,copy2);
+    
+        heap_size = array.length;
         CounterHe = 0;
         CounterSe = 0;
     }
