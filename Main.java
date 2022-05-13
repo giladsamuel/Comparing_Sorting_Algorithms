@@ -83,29 +83,6 @@ public class Main
     make_comparison(D,copyD1,copyD2);
    
     }
-    
-    public static void make_comparison(int[] array,int[] copy1,int[] copy2)
-    {
-        String result;
-        initialize( array, copy1, copy2);
-         System.out.println("n = "+array.length);
-         System.out.println("----------------");
-        System.out.println("----------------");
-        Print_k_Smallest_Using_Heap(copy1, K_ONE);
-        Print_k_Smallest_Using_Select(copy2, K_ONE);
-        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
-        System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_ONE+"\n");
-        initialize( array, copy1, copy2);
-        Print_k_Smallest_Using_Heap(copy1, K_TWO);
-        Print_k_Smallest_Using_Select(copy2, K_TWO);
-        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
-        System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_TWO+"\n");
-        initialize( array, copy1, copy2);
-        Print_k_Smallest_Using_Heap(copy1, K_THREE);
-        Print_k_Smallest_Using_Select(copy2, K_THREE);
-        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
-        System.out.println("\n"+result+" made less comparisons for n = "+array.length+", k = "+K_THREE+"\n");
-    }
 
     /*heap's method*/
     
@@ -147,9 +124,9 @@ public class Main
         int smallest = i;
         if(l<heap_size)
         {
-        CounterHe++;
-         if(A[l] < A[i])
-             smallest = l;
+            CounterHe++;
+            if(A[l] < A[i])
+                smallest = l;
         }
         if(r<heap_size)
         {
@@ -186,7 +163,7 @@ public class Main
         Randomized_Select(B, 0, B.length-1, k-1);
         System.out.println("\nusing select:\n"+k+" smallest element are:");
         
-        Quick_Sort(B,0,k-2);
+        Quick_Sort(B,0,k-1);
         
         for(int i = 0; i<k; i++)        //print sorted k smallest elements
             System.out.print(B[i]+" ");
@@ -296,6 +273,29 @@ public class Main
         heap_size = array.length;
         CounterHe = 0;
         CounterSe = 0;
+    }
+
+    public static void make_comparison(int[] array,int[] copy1,int[] copy2)
+    {
+        String result;
+        initialize( array, copy1, copy2);
+         System.out.println("n = "+array.length);
+         System.out.println("----------------");
+        System.out.println("----------------");
+        Print_k_Smallest_Using_Heap(copy1, K_ONE);
+        Print_k_Smallest_Using_Select(copy2, K_ONE);
+        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
+        System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_ONE+"\n");
+        initialize( array, copy1, copy2);
+        Print_k_Smallest_Using_Heap(copy1, K_TWO);
+        Print_k_Smallest_Using_Select(copy2, K_TWO);
+        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
+        System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_TWO+"\n");
+        initialize( array, copy1, copy2);
+        Print_k_Smallest_Using_Heap(copy1, K_THREE);
+        Print_k_Smallest_Using_Select(copy2, K_THREE);
+        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
+        System.out.println("\n"+result+" made less comparisons for n = "+array.length+", k = "+K_THREE+"\n");
     }
 
 }
