@@ -93,19 +93,18 @@ public class Main
         System.out.println("----------------");
         Print_k_Smallest_Using_Heap(copy1, K_ONE);
         Print_k_Smallest_Using_Select(copy2, K_ONE);
-        result = CounterHe < CounterSe ? "HEAP" : "SELECT";
+        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
         System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_ONE+"\n");
         initialize( array, copy1, copy2);
         Print_k_Smallest_Using_Heap(copy1, K_TWO);
         Print_k_Smallest_Using_Select(copy2, K_TWO);
-        result = CounterHe < CounterSe ? "HEAP" : "SELECT";
+        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
         System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_TWO+"\n");
         initialize( array, copy1, copy2);
         Print_k_Smallest_Using_Heap(copy1, K_THREE);
         Print_k_Smallest_Using_Select(copy2, K_THREE);
-        result = CounterHe < CounterSe ? "HEAP" : "SELECT";
+        result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
         System.out.println("\n"+result+" made less comparisons for n = "+array.length+", k = "+K_THREE+"\n");
-        initialize( array, copy1, copy2);
     }
 
     /*heap's method*/
@@ -185,7 +184,7 @@ public class Main
     private static void Print_k_Smallest_Using_Select(int[] B, int k)
     {
         Randomized_Select(B, 0, B.length-1, k-1);
-        System.out.println("\nusing select:\nthe "+k+" smallest element are:");
+        System.out.println("\nusing select:\n"+k+" smallest element are:");
         
         Quick_Sort(B,0,k-2);
         
