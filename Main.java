@@ -11,23 +11,30 @@ import java.util.Scanner;
 
 public class Main 
 {
-     static Scanner scan; 
-     static Random rand;
-     static int heap_size;
-     static int CounterHe = 0;
-     static int CounterSe = 0;
+     final static int SIZE_ONE = 100;
+     final static int SIZE_TWO = 200;
+     final static int SIZE_THREE = 500;
+     final static int SIZE_FOUR = 1000;  
+     final static int K_ONE = 8;
+     final static int K_TWO = 50;
+     final static int K_THREE = 100;
+     private static int CounterHe = 0;
+     private static int CounterSe = 0;
+     private static Scanner scan; 
+     private static Random rand;
+     private static int heap_size;
      public static void main(String[] args)
     {   
     scan = new Scanner(System.in);
     rand = new Random();
     int n, k;
-    int[] A, B; //two copy arrays to test solutions
-    
+    int[] Array, copyArray; //two copy arrays to test solutions
+    int[] A,B,C,D;
     System.out.println("Welcome");
     System.out.println("Enter the number of elements in the array");
     n = scan.nextInt();
-    A = new int[n];
-    B = new int[n];
+    Array = new int[n];
+    copyArray = new int[n];
     heap_size = n;
     System.out.println("Enter the k value");
     k = scan.nextInt();
@@ -36,27 +43,66 @@ public class Main
     scan.nextLine(); //move the cursor to the next line
     String ans = scan.nextLine(); //scan next line
     if(ans.equals("me"))
-        Get_Input(A);
+        Get_Input(Array);
     
         
     else 
-        Random_Numbers(A);
+        Random_Numbers(Array);
     
-    Copy_arrays(A,B);    
-    Print_Array(A);
+    Copy_arrays(Array,copyArray);    
+    Print_Array(Array);
 
-    Print_k_Smallest_Using_Heap(A, k);
-    Print_k_Smallest_Using_Select(B, k);
+    Print_k_Smallest_Using_Heap(Array, k);
+    Print_k_Smallest_Using_Select(copyArray, k);
+    
+    System.out.println("-----------------------------------------------");
+    A = new int[SIZE_ONE];
+    B = new int[SIZE_TWO];
+    C = new int[SIZE_THREE];
+    D = new int[SIZE_FOUR];
+    Random_Numbers(A);
+    Random_Numbers(B);
+    Random_Numbers(C);
+    Random_Numbers(D);
+    make_comparison(A);
+    make_comparison(B);
+    make_comparison(C);
+    make_comparison(D);
+   
     }
     
+    public static void make_comparison(int[] array)
+    {
+        String result;
+        initialize(array.length);
+         System.out.println("n = "+array.length);
+         System.out.println("---------------");
+        System.out.println("----------------");
+        Print_k_Smallest_Using_Heap(array, K_ONE);
+        Print_k_Smallest_Using_Select(array, K_ONE);
+        result = CounterHe < CounterSe ? "HEAP" : "SELECT";
+        System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_ONE+"\n");
+        initialize(array.length);
+        Print_k_Smallest_Using_Heap(array, K_TWO);
+        Print_k_Smallest_Using_Select(array, K_TWO);
+        result = CounterHe < CounterSe ? "HEAP" : "SELECT";
+        System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_TWO+"\n");
+        initialize(array.length);
+        Print_k_Smallest_Using_Heap(array, K_THREE);
+        Print_k_Smallest_Using_Select(array, K_THREE);
+        result = CounterHe < CounterSe ? "HEAP" : "SELECT";
+        System.out.println("\n"+result+" made less comparisons for n = "+array.length+", k = "+K_THREE+"\n");
+        initialize(array.length);
+    }
     /*heap's method*/
     
     private static void Print_k_Smallest_Using_Heap(int[] A, int k)
     {
-        System.out.println("@using heap@\n")
+        
+        System.out.println("using heap:\n");
         Build_Min_Heap(A);
         
-        System.out.println("\n"+k+" smallest elements are:");
+        System.out.println(k+" smallest elements are:");
         for(int i = 0; i<k; i++)
             System.out.print(Heap_Extract_Min(A) + " ");
         
@@ -85,18 +131,19 @@ public class Main
     {
         int l = Left(i);
         int r = Right(i);
-        int smallest;
-        if(l<heap_size && A[l] < A[i])
-            {
-            smallest = l;
+        int smallest = i;
+        if(l<heap_size-1)
+        {
+        CounterHe++;
+         if(A[l] < A[i])
+             smallest = l;
+        }
+        if(r<heap_size-1)
+        {
             CounterHe++;
-            }
-        else smallest = i;
-        if(r<heap_size && A[r] < A[smallest])
-            {
-            smallest = r;
-            CounterHe++;
-            }
+            if(A[r] < A[smallest])
+                smallest = r;
+        }
         if(smallest!=i)
         {
             Swap(A, i , smallest);
@@ -125,9 +172,9 @@ public class Main
     private static void Print_k_Smallest_Using_Select(int[] B, int k)
     {
         Randomized_Select(B, 0, B.length-1, k-1);
-        System.out.println("useing select:\nthe "+k+" smallest element are:");
+        System.out.println("\nusing select:\nthe "+k+" smallest element are:");
         
-        Quick_Sort(B,0,k-1);
+        Quick_Sort(B,0,k-2);
         
         for(int i = 0; i<k; i++)        //print sorted k smallest elements
             System.out.print(B[i]+" ");
@@ -179,7 +226,7 @@ public class Main
     {
         if(p < r) //check if there are at least two elements in virtual array
         {
-            int q = Partition(B, p, r);
+            int q = Randomized_Partition(B, p, r);
             Quick_Sort(B, p, q-1);
             Quick_Sort(B, q+1,r);
         }
@@ -195,7 +242,7 @@ public class Main
 
     private static void Get_Input(int[] A) //user fill array
     {
-            for(int i=0;i<A.length;i++)
+            System.out.println("Enter Your numbers, press ENTER after each number");            for(int i=0;i<A.length;i++)
             {
                 System.out.println("Enter next integer");
                 int num = scan.nextInt();
@@ -227,6 +274,13 @@ public class Main
             System.out.print(A[i]+" ");
             System.out.println();
         
+    }
+
+    private static void initialize(int size)
+    {
+        heap_size = size;
+        CounterHe = 0;
+        CounterSe = 0;
     }
 
 }
