@@ -18,8 +18,8 @@ public class Main
      final static int K_ONE = 8;
      final static int K_TWO = 50;
      final static int K_THREE = 100;
-     private static int CounterHe = 0;
-     private static int CounterSe = 0;
+     private static int CounterHe = 0; //count number of comparisons between elements on HeapSort (solution A)
+     private static int CounterSe = 0; //count number of comparisons between elements on SelectSort (solution B)
      private static Scanner scan; 
      private static Random rand;
      private static int heap_size;
@@ -54,9 +54,11 @@ public class Main
     Print_k_Smallest_Using_Heap(Array, k);
     Print_k_Smallest_Using_Select(copyArray, k);
     
-    System.out.println("-----------------------------------------------");
+    System.out.println("-----------------------------------------------"
+                             +"\nstarting second paragraph\n");
     
-    
+    //initialize arrays and there copies for testing
+
     int [] A = new int[SIZE_ONE];
     int [] B = new int[SIZE_TWO];
     int [] C = new int[SIZE_THREE];
@@ -76,7 +78,8 @@ public class Main
     Random_Numbers(B);
     Random_Numbers(C);
     Random_Numbers(D);
-
+    
+    //test four different 'n' size
     make_comparison(A,copyA1,copyA2);
     make_comparison(B,copyB1,copyB2);
     make_comparison(C,copyC1,copyC2);
@@ -86,7 +89,7 @@ public class Main
 
     /*heap's method*/
     
-    private static void Print_k_Smallest_Using_Heap(int[] A, int k)
+    private static void Print_k_Smallest_Using_Heap(int[] A, int k) //like HeapSort algorithm on page 113 of the textbook
     {
         
         System.out.println("\nusing heap:");
@@ -95,9 +98,8 @@ public class Main
         System.out.println(k+" smallest elements are:");
         for(int i = 0; i<k; i++)
             System.out.print(Heap_Extract_Min(A) + " ");
-        
-        System.out.println();    
-        System.out.println("there were " + CounterHe +" comparisons");
+            
+        System.out.println("\n" + "there were " + CounterHe +" comparisons");
     }
 
     private static int Heap_Extract_Min(int[] A)//return min element of heap and reorganize to min-heap
@@ -141,11 +143,6 @@ public class Main
         }
     }
 
-    private static int Parent(int i) //return parent
-    {
-        return (i-1)/2;
-    }
-
     private static int Left(int i) //return left son
     {
         return 2*i+1;
@@ -158,7 +155,7 @@ public class Main
 
     /*select's methods*/
 
-    private static void Print_k_Smallest_Using_Select(int[] B, int k)
+    private static void Print_k_Smallest_Using_Select(int[] B, int k) //finds k's smallest element,and QuickSort all k smallest elements 
     {
         Randomized_Select(B, 0, B.length-1, k-1);
         System.out.println("\nusing select:\n"+k+" smallest element are:");
@@ -194,7 +191,7 @@ public class Main
         return Partition(B,p,r);
     }
 
-    private static int Partition(int[] B, int p,int r)//make partition sub-method of 'Randomized_Partition' method
+    private static int Partition(int[] B, int p,int r) //make partition sub-method of 'Randomized_Partition' method
     {
         int x = B[r];
         int i = p - 1;
@@ -211,7 +208,7 @@ public class Main
         return i + 1;
     }
 
-    private static void Quick_Sort(int[] B, int p,int r)
+    private static void Quick_Sort(int[] B, int p,int r) ////like QuickSort algorithm on page 122 of the textbook
     {
         if(p < r) //check if there are at least two elements in virtual array
         {
@@ -256,7 +253,7 @@ public class Main
         A[j] = temp;
     }
 
-    private static void Print_Array(int[] A)
+    private static void Print_Array(int[] A) //prints all array elemnts from the smallest index to the top
     {
         System.out.println("Your Array is:");
         for(int i = 0; i<A.length; i++)
@@ -265,7 +262,7 @@ public class Main
         
     }
 
-    private static void initialize(int[] array,int[] copy1,int[] copy2)
+    private static void initialize(int[] array,int[] copy1,int[] copy2) //return copyArrys to original state and calibrate counters and heap_size
     {
         Copy_arrays(array,copy1);
         Copy_arrays(array,copy2);
@@ -275,22 +272,28 @@ public class Main
         CounterSe = 0;
     }
 
-    public static void make_comparison(int[] array,int[] copy1,int[] copy2)
+    public static void make_comparison(int[] array,int[] copy1,int[] copy2) //makes comparison on arrays for second paragraph
     {
         String result;
-        initialize( array, copy1, copy2);
-         System.out.println("n = "+array.length);
-         System.out.println("----------------");
-        System.out.println("----------------");
+        System.out.println("n = "+array.length
+                         + "\n----------------"
+                         + "\n----------------");
+
+        //testing K_ONE
+        initialize( array, copy1, copy2); 
         Print_k_Smallest_Using_Heap(copy1, K_ONE);
         Print_k_Smallest_Using_Select(copy2, K_ONE);
         result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
         System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_ONE+"\n");
+
+        //testing K_TWO
         initialize( array, copy1, copy2);
         Print_k_Smallest_Using_Heap(copy1, K_TWO);
         Print_k_Smallest_Using_Select(copy2, K_TWO);
         result = CounterHe < CounterSe ? "\nHEAP" : "\nSELECT";
         System.out.println(result+" made less comparisons for n = "+array.length+", k = "+K_TWO+"\n");
+
+        //testing K_THREE
         initialize( array, copy1, copy2);
         Print_k_Smallest_Using_Heap(copy1, K_THREE);
         Print_k_Smallest_Using_Select(copy2, K_THREE);
