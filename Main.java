@@ -160,7 +160,7 @@ public class Main
         Randomized_Select(B, 0, B.length-1, k-1);
         System.out.println("\nusing select:\n"+k+" smallest element are:");
         
-        Quick_Sort(B,0,k-1);
+        Quick_Sort(B,0,k-2);
         
         for(int i = 0; i<k; i++)        //print sorted k smallest elements
             System.out.print(B[i]+" ");
